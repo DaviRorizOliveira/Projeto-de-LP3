@@ -1,5 +1,5 @@
 import pygame
-from farmer import Farmer
+from movment import Farmer
 
 # Configurações da tela
 WIDTH = 1280
