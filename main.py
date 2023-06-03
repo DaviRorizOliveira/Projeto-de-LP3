@@ -1,5 +1,5 @@
 import pygame
-from farmer import Farmer
+from farmer import Movimento
 
 # Configurações da tela
 WIDTH = 1280
@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 pygame.display.set_caption('Jogo')
 
-player = Farmer(screen)
+player = Movimento(screen)
 
 while True:
     for event in pygame.event.get():
