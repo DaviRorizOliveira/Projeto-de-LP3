@@ -1,4 +1,5 @@
 import pygame
+from movment import Farmer
 from farmer import Movimento
 
 # Configurações da tela
