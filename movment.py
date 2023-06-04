@@ -1,6 +1,6 @@
 import pygame
 
-class Farmer(pygame.sprite.Sprite):
+class Movimento(pygame.sprite.Sprite):
     def __init__(self, screen):
         pygame.sprite.Sprite.__init__(self)
         self.sprites = {
