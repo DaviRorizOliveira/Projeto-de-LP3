@@ -1,32 +1,45 @@
 class Farmer:
-    def __init__(self, inventario,stamina,dinheiro, nome):
-        self._inventario = inventario
-        self._stamina = stamina
-        self._dinheiro = dinheiro
-        self._nome = nome
-        
-    @property   
-    def inventario(self):
+    def __init__(self, inventario):
+        self.inventario = inventario
+        self.stamina = 0
+        self.dinheiro = 0.0
+        self.nome = "Pedro"
+ 
+    def get_inventario(self):
         return self.inventario
     
-    @property
-    def stamina(self):
+    
+    def get_stamina(self):
         return self.stamina
     
-    @property
-    def dinheiro(self):
-        return self.dinheiro  
+
+    def get_dinheiro(self):
+        return self.dinheiro 
+
+    def __verifica_inventario(self):
+        if len(self.inventario) > 9:
+            return False
+        else:
+            return True
     
-    @inventario.setter
-    def inventario(self, item, quant):
-        self.inventario[item] = quant
+    
+    def set_inventario(self, item, quant):
+        if self.__verifica_inventario:
+            if item in self.inventario:
+                self.inventario[item] += quant
+            else:
+                self.inventario[item] = quant
+            
+        else:
+            print("Oops! O seu inventário está cheio!")
         
-    @stamina.setter
-    def stamina(self, valor):
+
+    def set_stamina(self, valor):
         self.stamina += valor
 
-    @dinheiro.setter 
-    def dinheiro(self, valor):
+     
+    def set_dinheiro(self, valor):
         self.dinheiro += valor
+
 
     
