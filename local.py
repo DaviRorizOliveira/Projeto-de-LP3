@@ -5,11 +5,11 @@ class Local(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(image)
-        self.rect = self.image.get_rect(topleft=(x, y))
+        self.house = pygame.transform.scale(self.image, (250, 250))
+        self.rect = self.house.get_rect(topleft=(x, y))
 
     def build_local(self, screen):
-        house = pygame.transform.scale(self.image, (250, 250))
-        screen.blit(house, (WIDTH - 250, 0))
+        screen.blit(self.house, (WIDTH - 250, 0))
 
     def is_collision(self, player):
         if (player.player_pos.x + player.TAM_WIDTH > self.rect.left and
