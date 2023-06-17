@@ -4,6 +4,7 @@ from setup import *
 class Movimento(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
+        # Sprites do personagem
         self.sprites = {
             'down': [
                 pygame.image.load('Sprites/down_01.png'),
@@ -41,9 +42,9 @@ class Movimento(pygame.sprite.Sprite):
         self.atual = 0
         self.image = self.sprites[self.direction][self.atual]
     
-    def build_player(self, screen, dt, local):
+    def build_player(self, screen, dt, local, popup):
         screen.blit(self.image, self.player_pos - pygame.Vector2(self.image.get_size()) / 2)
-        self.update_pos(dt, local)
+        self.update_pos(dt, local, popup, screen)
     
     def update_sprite(self, dt):
         self.atual = (self.atual + dt * self.ATT_SPEED) % len(self.sprites[self.direction])
@@ -53,7 +54,7 @@ class Movimento(pygame.sprite.Sprite):
         self.player_pos.x = max(self.TAM_WIDTH, min(self.player_pos.x, WIDTH - self.TAM_WIDTH))
         self.player_pos.y = max(self.TAM_HEIGHT, min(self.player_pos.y, HEIGHT - self.TAM_HEIGHT))
     
-    def update_pos(self, dt, local):
+    def update_pos(self, dt, local, popup, screen):
         keys = pygame.key.get_pressed()
         dx = 0
         dy = 0
@@ -82,3 +83,22 @@ class Movimento(pygame.sprite.Sprite):
 
         if local.is_collision(self):
             local.handle_collision(self)
+        
+        if (self.player_pos.x + self.TAM_WIDTH + 20 > local.rect.left and
+                self.player_pos.x < local.rect.right and
+                self.player_pos.y + self.TAM_HEIGHT > local.rect.top and
+                self.player_pos.y - 20 < local.rect.bottom):
+            
+            if keys[pygame.K_e]:
+                if popup.ca == 1:
+                    popup.ca = 0
+                    popup.close = True
+                else:
+                    popup.close = False
+                    popup.ca = 1
+            if popup.close == False:
+                popup.show_popup(screen)
+                popup.handle_events()
+        else:
+            popup.close = True
+            popup.ca = 0
