@@ -2,6 +2,7 @@ import pygame
 from setup import *
 from movment import Movimento
 from local import Local
+from popup import Popup
 
 # Inicialização do pygame
 pygame.init()
