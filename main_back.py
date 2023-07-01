@@ -183,7 +183,7 @@ class Cercado(Converte,Imprime):
         self.inv = inventario
         super().__init__()
 
-    def incluir(self, t):
+    def incluir(self):
         tipo = 5
         self.inv.imprime()
         while tipo == 5:
@@ -196,11 +196,11 @@ class Cercado(Converte,Imprime):
             tipo = self.c_cercado(t)
         
         if tipo != None:
-            while self.cera.get(tipo):
+            while self.cerca.get(tipo):
                 tipo = tipo + 10
           
             a = [0, 0, 0, 0]
-            self.plant[tipo] = a
+            self.cerca[tipo] = a
 
     def atualiza(self):
         self.__verifica_vida()
@@ -278,7 +278,7 @@ class Cercado(Converte,Imprime):
     
     def imprime(self):
       for i in self.cerca.keys():
-        print(f"{self.c_animal(i)}   Idade : {self.dic[i][0]} dias\nFoi alimentado a {self.dic[i][1]} dias\nRecebeu agua a {self.dic[i][2]} dias")
+        print(f"{self.c_animal(i)}   Idade : {self.cerca[i][0]} dias\nFoi alimentado a {self.cerca[i][1]} dias\nRecebeu agua a {self.cerca[i][2]} dias")
 
 
 class Farmer:
@@ -453,14 +453,15 @@ if __name__ == '__main__':
   x = 1
   while quit != 1:
     option = 1
-    aux = 1
     quit = int(input("Entre 1 para sair.\n"))
     if quit != 1:
       while (option != 4) and x > 0:
         x = farmer.get_stamina()
         option = int(input("O que você quer fazer\n1.Olhar a sua plantação\n2.Olhar o seu cercado\n3.Ir para a cidade\n4.Dormir\n"))
-        
+        print(f"option = {option}")
+
         if option == 1:
+          aux = 1
           while (aux != 0) and (x > 0):
             aux = int(input("O que você quer fazer na sua plantação?\n1.Ver Status das Plantas\n2.Plantar\n3.Regar\n4.Colher\nEntre 0 para sair\n"))
             if aux == 1:
@@ -480,7 +481,8 @@ if __name__ == '__main__':
             farmer.imprime()
 
 
-        if(option == 2):
+        elif option == 2:
+          aux = 1
           while aux != 0 and x > 0:
             aux = int(input("O que você quer fazer no seu cercado?\n1.Ver Status dos animais\n2.Adicionar animais\n3.Dar água\n4.Dar Comida\n5.Recolher itens\n6.Matar\n Entre 0 para sair\n"))
             if aux == 1:
@@ -497,6 +499,7 @@ if __name__ == '__main__':
               cerca.imprime()
             elif aux == 5:
               cerca.recolher()
+              inventario.imprime()
             elif aux == 6:
               cerca.imprime()
               m = int(input("Qual animal você quer matar?\n"))
@@ -506,7 +509,8 @@ if __name__ == '__main__':
             x = farmer.get_stamina()
             farmer.imprime()
         
-        if(option == 3):
+        elif option == 3 :
+          aux = 1
           while aux != 0 and x > 0:
             aux = int(input("O que você quer fazer na cidade?\n1.Comprar\n2.Vender\nEntre 0 para sair\n"))
             if aux == 1:
