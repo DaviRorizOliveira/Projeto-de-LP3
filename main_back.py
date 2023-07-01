@@ -73,23 +73,25 @@ class Planta(Converte,Imprime):
     def plantar(self):
         tipo = 5
         self.inv.imprime()
-        while tipo == 5:
-            item = input("Qual item você quer utilizar(1 para sair)\n")
-            if item == "1":
-                return 0
-            elif item == "NULL":
-                print("Voce nao possui esse item")
-            t,q = self.inv.get_inventario(item,1)
-            tipo = self.c_semente(t)
-
-        print(f"tipo = {tipo}")
-        
-        if tipo != None:
-            while self.plant.get(tipo):
-                tipo = tipo + 10
-          
-            a = [0, 0, 0, 0]
-            self.plant[tipo] = a
+        i,q = self.inv.get_inventario("Enxada",1)
+        print(f"i = {i}")
+        if i != "NULL":
+            while tipo == 5:
+                item = input("Qual item você quer utilizar(1 para sair)\n")
+                if item == "1":
+                    return 0
+                elif item == "NULL":
+                    print("Voce nao possui esse item")
+                t,q = self.inv.get_inventario(item,1)
+                tipo = self.c_semente(t)
+                if tipo != None:
+                    while self.plant.get(tipo):
+                        tipo = tipo + 10
+                
+                    a = [0, 0, 0, 0]
+                    self.plant[tipo] = a
+        else:
+            print("Voce nao pode plantar! Compre uma enxada para poder plantar mais")
 
     def atualiza(self, chuva):
         self.__verifica_vida()
@@ -97,7 +99,7 @@ class Planta(Converte,Imprime):
         for i in self.plant.keys():
             self.plant[i][0] = self.plant[i][0] + 1
 
-            if self.plant[i][0] >= 3:
+            if self.plant[i][0] >= 5:
                 self.plant[i][3] += 1
             elif chuva == 0:
                 self.plant[i][1] += 1
@@ -106,8 +108,11 @@ class Planta(Converte,Imprime):
                 self.plant[i][2] += 1
 
     def regar(self):
-        for i in self.plant.keys():
-            self.plant[i][2] = 0
+        i,q = self.inv.get_inventario("Enxada",1)
+        print(f"i = {i}")
+        if i != "NULL":
+            for i in self.plant.keys():
+                self.plant[i][2] = 0
 
     def __verifica_colheita(self,tipo):
         if self.plant == {}:
@@ -176,21 +181,26 @@ class Cercado(Converte,Imprime):
 
         self.cerca = cerca
         self.inv = inventario
+        super().__init__()
 
     def incluir(self, t):
+        tipo = 5
         self.inv.imprime()
         while tipo == 5:
             item = input("Qual item você quer utilizar(1 para sair)\n")
             if item == "1":
-                break
+                return 0
+            elif item == "NULL":
+                print("Voce nao possui esse item")
             t,q = self.inv.get_inventario(item,1)
-            tipo = self.c_animal(t)
-        while self.plant.get(tipo):
-            tipo = tipo + 10
-            
+            tipo = self.c_cercado(t)
+        
         if tipo != None:
-            a = [0, 0, 0]
-            self.cerca[tipo] = a
+            while self.cera.get(tipo):
+                tipo = tipo + 10
+          
+            a = [0, 0, 0, 0]
+            self.plant[tipo] = a
 
     def atualiza(self):
         self.__verifica_vida()
@@ -274,7 +284,7 @@ class Cercado(Converte,Imprime):
 class Farmer:
     def __init__(self,nome):
         self.stamina = 10
-        self.dinheiro = 0.0
+        self.dinheiro = 10.0
         self.nome = nome
 
     def get_stamina(self):
@@ -285,6 +295,8 @@ class Farmer:
 
     def set_stamina(self, valor):
         self.stamina += valor
+        if self.stamina > 10:
+            self.stamina = 10
 
     def set_dinheiro(self, valor):
         self.dinheiro += valor
@@ -373,7 +385,7 @@ class Loja_p(Imprime):
 
 class Inventario:
   def __init__(self):
-        self.inventario = {"Semente de Tomate": 1, "Broto de Batata" : 1, "Regador" : 1, "Enxada" : 1}
+        self.inventario = {"Semente de Tomate": 1, "Broto de Batata" : 1, "Vaca" : 1,"Regador" : 1, "Enxada" : 1}
       
   def get_inventario(self,nome,q):
         if self.__verifica_inventario(nome):
