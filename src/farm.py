@@ -10,10 +10,15 @@ class Farm(Local, Converte, Imprime):
         super().__init__(image, x, y)
         super(Converte, self).__init__()
 
+
         self.largura_do_retangulo = 285
         self.altura_do_retangulo = 90
         self.pos_x = x
         self.pos_y = y
+
+        self.terra = pygame.image.load('imagens/dirt_background.jpeg')
+
+        self.atual = 0
 
         self.tipo = ['Tomate', 'Tomate', 'Batata', 'Trigo', '']
         #self.plant = plant
@@ -39,6 +44,7 @@ class Farm(Local, Converte, Imprime):
                 pygame.image.load('imagens/trigo_sprites/trigo_04.png')
             ]
         }
+        self.image = self.sprites['tomate'][self.atual]
 ###############################################################################################
     def plantar(self):
         tipo = 5
@@ -136,16 +142,22 @@ class Farm(Local, Converte, Imprime):
             print(f"{self.c_planta(i)}   Idade : {self.plant[i][0]} dias\nChuva : {self.plant[i][1]} dias\nFoi regada a {self.plant[i][2]} dias\nEstá madura a {self.plant[i][3]} dias")
 ###############################################################################################
     def build_local(self, screen):
-        self.image = pygame.transform.scale(self.image, (self.largura_do_retangulo, self.altura_do_retangulo))
-        self.rect = self.image.get_rect(topleft=(self.pos_x, self.pos_y))
-        screen.blit(self.image, (self.pos_x, self.pos_y))
+        self.terra = pygame.transform.scale(self.terra, (self.largura_do_retangulo, self.altura_do_retangulo))
+        self.rect = self.terra.get_rect(topleft=(self.pos_x, self.pos_y))
+        screen.blit(self.terra, (self.pos_x, self.pos_y))
         #screen.blit('imagens/tomate_04.png', (self.pos_x, self.pos_y))
         self.slot(screen)
 ###############################################################################################
     def slot(self, screen):
-        image = pygame.image.load('imagens/tomate_sprites/tomate_04.png')
-        image = pygame.transform.scale(image, (45, 75))
-        screen.blit(image, (self.pos_x + 10, self.pos_y + 5))
+        self.image = self.sprites['tomate'][self.atual]
+        self.image = pygame.transform.scale(self.image, (45, 75))
+        screen.blit(self.image, (self.pos_x + 10, self.pos_y + 5))
+
+    def atualiza_sprite(self):
+        self.atual += 1
+        if self.atual > 3:
+            self.atual = 0
+        self.image = self.sprites['tomate'][self.atual]
 ###############################################################################################
     def popup_screen(self, screen):
         mensagem = [f"Slot {a + 1} - {tipo}" for a, tipo in enumerate(self.tipo)]

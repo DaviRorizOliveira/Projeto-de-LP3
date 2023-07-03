@@ -148,6 +148,10 @@ class Farmer(pygame.sprite.Sprite):
                 popup.show_popup(screen)
                 popup.handle_events()
                 farm.popup_screen(screen)
+                if keys[pygame.K_j]:
+                    farm.atualiza_sprite()
+                    popup.aux = 0
+                    popup.close = True
         else:
             popup.close = True
             popup.aux = 0
