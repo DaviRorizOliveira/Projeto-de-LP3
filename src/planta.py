@@ -66,7 +66,6 @@ class Planta(Imprime):
         self.getStatus()
 
         screen.blit(FONTE1.render(f'Tipo da planta: {self.tipo_planta}', True, BLACK), (325, 185))
-        screen.blit(FONTE1.render(f'Idade da planta: {self.idade}', True, BLACK), (325, 210))
         screen.blit(FONTE1.render(f'Status da planta: {self.status}', True, BLACK), (325, 235))
         screen.blit(FONTE1.render('C - Colher plantação', True, BLACK), (325, 260))
         screen.blit(FONTE1.render('Matenha pressionado P - Plantar semente', True, BLACK), (325, 285))
