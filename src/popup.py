@@ -27,7 +27,6 @@ class Popup:
     def show_close_button(self, screen):
         close_button_size = 20
         close_button_pos = (self.pos_x + self.largura - close_button_size - 5, self.pos_y + 5)
-        #pygame.draw.rect(screen, self.border_color, pygame.Rect(*close_button_pos, close_button_size, close_button_size), 2)
         pygame.draw.line(screen, self.text_color, close_button_pos, (close_button_pos[0] + close_button_size, close_button_pos[1] + close_button_size), 2)
         pygame.draw.line(screen, self.text_color, (close_button_pos[0] + close_button_size, close_button_pos[1]), (close_button_pos[0], close_button_pos[1] + close_button_size), 2)
 
@@ -38,7 +37,6 @@ class Popup:
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Botão esquerdo do mouse
-                    #print(self.close)
                     mouse_pos = pygame.mouse.get_pos()
                     if self.is_close_button_clicked(mouse_pos):
                         self.close_popup()

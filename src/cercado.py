@@ -1,5 +1,4 @@
 import pygame
-from random import randrange
 from converte import Converte
 from local import Local
 from animal import Animal
@@ -22,3 +21,15 @@ class Cercado(Local):
         elif self.slots[slot].especie == 'ovelha':
             player.qtd_la += self.slots[slot].qtd_produzido
         self.slots[slot].qtd_produzido = 0
+        self.slots[slot].alimentado = False
+    
+    def alimentar(self, slot, player):
+        if self.slots[slot].especie == 'vaca':
+            self.slots[slot].alimentado = True
+            player.qtd_trigo -= 1
+        elif self.slots[slot].especie == 'galinha':
+            self.slots[slot].alimentado = True
+            player.qtd_tomate -= 1
+        elif self.slots[slot].especie == 'ovelha':
+            self.slots[slot].alimentado = True
+            player.qtd_batata -= 1

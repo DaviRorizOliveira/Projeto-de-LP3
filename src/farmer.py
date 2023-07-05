@@ -69,26 +69,26 @@ class Farmer(pygame.sprite.Sprite):
 
         # Criação das interações que ocorrem entre o personagem e os locais do mapa
         self.interações = Interações()
-###############################################################################################
+
     def usa_enxada(self):
         self.vida_da_enxada -= 1
         if self.vida_da_enxada == 0:
             self.tem_enxada = False
-###############################################################################################
+
     def get_inventario(self):
         return self.tem_enxada
-###############################################################################################
+
     def get_stamina(self):
         return self.stamina
     def get_dinheiro(self):
         return self.dinheiro 
-###############################################################################################
+
     def __verifica_inventario(self):
         if len(self.inventario) > 9:
             return False
         else:
             return True
-###############################################################################################
+
     def set_inventario(self, item, quant):
         if self.__verifica_inventario:
             if item in self.inventario:
@@ -102,15 +102,15 @@ class Farmer(pygame.sprite.Sprite):
         self.stamina += valor
     def set_dinheiro(self, valor):
         self.dinheiro += valor
-###############################################################################################
+
     def build_player(self, screen, dt, casa, cercado, farm, mercado, popup):
         screen.blit(self.image, self.player_pos - pygame.Vector2(self.image.get_size()) / 2)
         self.update_pos(dt, casa, cercado, farm, mercado, popup, screen)
-###############################################################################################
+
     def update_sprite(self, dt):
         self.atual = (self.atual + dt * self.CHANGE_SPRITE_SPEED) % len(self.sprites[self.direction])
         self.image = self.sprites[self.direction][int(self.atual)]
-###############################################################################################
+
     def clamp_position(self, casa, cercado, mercado, farm):
         self.player_pos.x = max(self.TAM_WIDTH, min(self.player_pos.x, WIDTH - self.TAM_WIDTH))
         self.player_pos.y = max(self.TAM_HEIGHT, min(self.player_pos.y, HEIGHT - self.TAM_HEIGHT))
@@ -123,7 +123,7 @@ class Farmer(pygame.sprite.Sprite):
             farm.handle_collision(self)
         if mercado.is_collision(self):
             mercado.handle_collision(self)
-###############################################################################################
+
     def update_pos(self, dt, casa, cercado, farm, mercado, popup, screen):
         keys = pygame.key.get_pressed()
         dx = 0
@@ -152,3 +152,14 @@ class Farmer(pygame.sprite.Sprite):
         
         self.clamp_position(casa, cercado, mercado, farm)
         self.interações.testa_interações(self, casa, cercado, farm, mercado, popup, screen)
+    
+    def printa_inventario(self, screen):
+        screen.blit(FONTE1.render(f'1 - Tens {self.qtd_tomate} tomates', True, BLACK), (325, 185))
+        screen.blit(FONTE1.render(f'2 - Tens {self.qtd_batata} batatas', True, BLACK), (325, 210))
+        screen.blit(FONTE1.render(f'3 - Tens {self.qtd_trigo} quilos de trigo', True, BLACK), (325, 235))
+        screen.blit(FONTE1.render(f'4 - Tens {self.qtd_leite} litros de leite', True, BLACK), (325, 260))
+        screen.blit(FONTE1.render(f'5 - Tens {self.qtd_ovo} ovos', True, BLACK), (325, 285))
+        screen.blit(FONTE1.render(f'6 - Tens {self.qtd_la} quilos de lã', True, BLACK), (325, 310))
+        screen.blit(FONTE1.render(f'7 - Tens {self.s_tomate} sementes de tomate', True, BLACK), (325, 335))
+        screen.blit(FONTE1.render(f'8 - Tens {self.s_batata} sementes de batata', True, BLACK), (325, 360))
+        screen.blit(FONTE1.render(f'9 - Tens {self.s_trigo} sementes de trigo', True, BLACK), (325, 385))

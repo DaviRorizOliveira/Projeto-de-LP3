@@ -22,12 +22,12 @@ class World:
         self.lista_de_locais.append(self.casa)
         self.lista_de_locais.append(self.cercado)
         self.lista_de_locais.append(self.farm)
-###############################################################################################
+
     def build_screen(self, screen):
         background_image = pygame.image.load('imagens/grass_background.jpg')
         background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
         screen.blit(background_image, (0, 0))
-###############################################################################################
+
     def build_world(self, screen, dt):
         self.farm.build_local(screen)
         self.casa.build_local(screen, 300, 300)
@@ -36,7 +36,7 @@ class World:
         self.player.build_player(screen, dt, self.casa, self.cercado, self.farm, self.mercado, self.popup)
 
         screen.blit(FONTE1.render(f'Dia atual: {self.casa.dia}', True, WHITE), (WIDTH - 150, HEIGHT - 30))
-###############################################################################################
+
     def play(self, screen, dt, clock):
         while True:
             for event in pygame.event.get():
@@ -49,7 +49,7 @@ class World:
 
             pygame.display.flip()
             dt = clock.tick(60) / 1000
-###############################################################################################
+
     def main_menu(self, screen, dt, clock):
         while True:
             screen.fill(WHITE)
@@ -81,13 +81,13 @@ class World:
                         quit()
 
             pygame.display.update()
-###############################################################################################
+
     def tutorial(self, screen, dt, clock):
         while True:
             screen.fill(WHITE)
             mouse_pos = pygame.mouse.get_pos()
 
-            tutorial_text = get_font(45).render("This is the OPTIONS screen.", True, "Black")
+            tutorial_text = get_font(45).render("This is the TUTORIAL screen.", True, "Black")
             tutorial_rect = tutorial_text.get_rect(center=(640, 260))
             screen.blit(tutorial_text, tutorial_rect)
 
@@ -105,4 +105,3 @@ class World:
                         self.main_menu(screen, dt, clock)
 
             pygame.display.update()
-###############################################################################################

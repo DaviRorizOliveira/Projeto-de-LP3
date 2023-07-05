@@ -1,14 +1,11 @@
 import pygame
-from random import randrange
 from settings import *
 from local import Local
-from converte import Converte
 from planta import Planta
 
-class Farm(Local, Converte):
+class Farm(Local):
     def __init__(self, image, x, y):
         super().__init__(image, x, y)
-        super(Converte, self).__init__()
 
         self.pos_x = x # Posição na tela
         self.pos_y = y # Posição na tela
@@ -23,7 +20,6 @@ class Farm(Local, Converte):
         super().build_local(screen, new_tam_x, new_tam_y)
         for a in range(5):
             self.slots[a].build_slot(screen)
-        #self.slots[0].build_slot(screen)
 
     def coloca_semente(self, slot, semente, player):
         if player.vida_da_enxada != 0:

@@ -6,18 +6,13 @@ from random import randrange
 class Casa(Local):
     def __init__(self, image, x, y):
         super().__init__(image, x, y)
-        #self.dormir = Passa_dia()
         self.dia = 1
 
     def popup_screen(self, screen, player):
-        interação01 = FONTE1.render('J - Você deseja dormir para passar o dia?', True, BLACK)
-        screen.blit(interação01, (325, 185))
-        interação02 = FONTE1.render(f'Nome da personagem: {player.nome}', True, BLACK)
-        screen.blit(interação02, (325, 260))
-        interação03 = FONTE1.render(f'Você tem {player.dinheiro} reais', True, BLACK)
-        screen.blit(interação03, (325, 285))
-        interação04 = FONTE1.render(f'Você tem enxada? {player.get_inventario()}', True, BLACK)
-        screen.blit(interação04, (325, 310))
+        screen.blit(FONTE1.render('J - Você deseja dormir para passar o dia?', True, BLACK), (325, 185))
+        screen.blit(FONTE1.render(f'Nome da personagem: {player.nome}', True, BLACK), (325, 260))
+        screen.blit(FONTE1.render(f'Você tem {player.dinheiro} reais', True, BLACK), (325, 285))
+        screen.blit(FONTE1.render(f'Você tem enxada? {player.get_inventario()}', True, BLACK), (325, 310))
     
     def passa_dia(self, farm, cercado):
         self.dia += 1

@@ -13,8 +13,8 @@ class Converte:
     def produto(a):
         match a:
             case 0:
-                return "Carne de Vaca"
+                return "leite"
             case 1:
-                return "Carne de Galinha"
+                return "ovos"
             case 2:
-                return "Carne de Ovelha"
+                return "lã"

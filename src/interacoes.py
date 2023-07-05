@@ -8,6 +8,17 @@ class Interações:
         keys = pygame.key.get_pressed()
         escolha = self.anterior
 
+        if keys[pygame.K_i]:
+            popup.close = False
+            popup.aux = 1
+        if keys[pygame.K_ESCAPE]:
+            popup.aux = 0
+            popup.close = True
+        if popup.close == False:
+            popup.show_popup(screen)
+            popup.handle_events()
+            player.printa_inventario(screen)
+
         if (player.player_pos.x + player.TAM_WIDTH + 20 > casa.rect.left and
                 player.player_pos.x < casa.rect.right and
                 player.player_pos.y + player.TAM_HEIGHT + 20 > casa.rect.top and
@@ -26,7 +37,7 @@ class Interações:
                     casa.passa_dia(farm, cercado)
                     popup.aux = 0
                     popup.close = True
-###############################################################################################
+
         elif (player.player_pos.x + player.TAM_WIDTH + 20 > cercado.rect.left and
                 player.player_pos.x - player.TAM_WIDTH - 20 < cercado.rect.right and
                 player.player_pos.y + player.TAM_HEIGHT + 20 > cercado.rect.top and
@@ -55,7 +66,11 @@ class Interações:
                     cercado.colheita(escolha, player)
                     popup.aux = 0
                     popup.close = True
-###############################################################################################
+                if keys[pygame.K_a]:
+                    cercado.alimentar(escolha, player)
+                    popup.aux = 0
+                    popup.close = True
+
         elif (player.player_pos.x + player.TAM_WIDTH + 20 > mercado.rect.left and
                 player.player_pos.x - player.TAM_WIDTH - 20 < mercado.rect.right and
                 player.player_pos.y + player.TAM_HEIGHT + 20 > mercado.rect.top and
@@ -110,7 +125,7 @@ class Interações:
                     mercado.compra_enxada(player)
                     popup.aux = 0
                     popup.close = True
-###############################################################################################
+
         elif (player.player_pos.x + player.TAM_WIDTH + 20 > farm.rect.left and
                 player.player_pos.x - player.TAM_WIDTH - 20 < farm.rect.right and
                 player.player_pos.y + player.TAM_HEIGHT + 20 > farm.rect.top and
@@ -161,7 +176,7 @@ class Interações:
                         farm.coloca_semente(escolha, 'trigo', player)
                         popup.aux = 0
                         popup.close = True
-###############################################################################################
+
         else:
             popup.close = True
             popup.aux = 0
