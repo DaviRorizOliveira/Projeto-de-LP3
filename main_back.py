@@ -1,4 +1,5 @@
 from random import randrange
+import pickle
 
 
 class Converte:
@@ -57,8 +58,13 @@ class Imprime():
     def imprime(self):
         raise NotImplementedError("A classe precisa ser capaz de imprimir")
     
+class Save():
 
-class Planta(Converte,Imprime):
+    def save(self):
+        raise NotImplementedError("A classe precisa salvar")
+    
+
+class Planta(Converte,Imprime,Save):
     def __init__(self, plant,inv):
         # O atributo abaixo recebe o código de uma planta como chave e uma lista
         # com quatro ints. Os significados dos valores seguem são os seguintes:
@@ -165,13 +171,16 @@ class Planta(Converte,Imprime):
 
         for i in lista:
             self.plant.pop(i)
+
+    def save(self):
+        return self.plant
    
     def imprime(self):
       for i in self.plant.keys():
             print(f"i = {self.c_planta(i)}")
             print(f"{self.c_planta(i)}   Idade : {self.plant[i][0]} dias\nChuva : {self.plant[i][1]} dias\nFoi regada a {self.plant[i][2]} dias\nEstá madura a {self.plant[i][3]} dias")
 
-class Cercado(Converte,Imprime):
+class Cercado(Converte,Imprime, Save):
     def __init__(self, cerca,inventario):
         # O atributo abaixo recebe o código de uma planta como chave e uma lista
         # com quatro ints. Os significados dos valores seguem são os seguintes:
@@ -275,6 +284,8 @@ class Cercado(Converte,Imprime):
         for i in lista:
             self.cerca.pop(i)
 
+    def save(self):
+        return self.cerca
     
     def imprime(self):
       for i in self.cerca.keys():
@@ -342,7 +353,7 @@ class Compras:
             return False
         
 
-class Loja_p(Imprime):
+class Loja_p(Imprime,Save):
     def __init__(self,inventario):
         self.inv = inventario
         self.produtos = {}
@@ -378,16 +389,19 @@ class Loja_p(Imprime):
             self.produtos.pop(i)
         return dinheiro
 
+    def save(self):
+        return self.produtos
+
     def imprime(self):
         for i in self.produtos.keys():
             print(f"{i}          R${self.produtos[i]}")
 
 
-class Inventario:
-  def __init__(self):
+class Inventario(Imprime,Save):
+    def __init__(self):
         self.inventario = {"Semente de Tomate": 1, "Broto de Batata" : 1, "Vaca" : 1,"Regador" : 1, "Enxada" : 1}
       
-  def get_inventario(self,nome,q):
+    def get_inventario(self,nome,q):
         if self.__verifica_inventario(nome):
           if self.inventario[nome] >= q:
               q = self.inventario[nome]
@@ -396,7 +410,7 @@ class Inventario:
         else:
             return "NULL",0
   
-  def __verifica_inventario(self,n):
+    def __verifica_inventario(self,n):
         if len(self.inventario) > 9:
             print("O seu inventario esta cheio")
             return False
@@ -406,7 +420,7 @@ class Inventario:
         else:
             return True
             
-  def set_inventario(self, item, quant):
+    def set_inventario(self, item, quant):
         if self.__verifica_inventario:
             if item in self.inventario:
                 self.inventario[item] += quant
@@ -416,7 +430,10 @@ class Inventario:
         else:
             print("Oops! O seu inventário está cheio!")
 
-  def imprime(self):
+    def save(self):
+      return self.inventario
+
+    def imprime(self):
         for i in self.inventario.keys():
             print(f"{i}     {self.inventario[i]}")
 
@@ -436,6 +453,27 @@ class Passa_dia:
         if self.loja != 0:
             self.farmer.set_dinheiro(self.loja_p.atualiza_loja())
         self.farmer.set_stamina(10)
+
+class Save_file:
+
+    def save_game_state(self,game_state, file_name):
+            try:
+                with open(file_name, 'wb') as file:
+                    pickle.dump(game_state, file)
+                    print("Game state saved successfully!")
+            except IOError:
+                print("Error: Unable to save game state.")
+
+        # Load game state
+    def load_game_state(self,file_name):
+            try:
+                with open(file_name, 'rb') as file:
+                    game_state = pickle.load(file)
+                    print("Game state loaded successfully!")
+                    return game_state
+            except (IOError, pickle.UnpicklingError):
+                print("Error: Unable to load game state.")
+
             
 if __name__ == '__main__':
   nome = input("Entre com o seu nome\n")
