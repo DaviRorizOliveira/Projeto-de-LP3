@@ -16,7 +16,7 @@ class Farm(Local, Converte):
         self.slots = []
 
         for a in range(5):
-            planta = Planta(self.pos_x + a * 45, self.pos_y)
+            planta = Planta(self.pos_x + 70 + a * 110, self.pos_y)
             self.slots.append(planta)
     
     def build_local(self, screen, new_tam_x=None, new_tam_y=None):
@@ -27,9 +27,23 @@ class Farm(Local, Converte):
 
     def coloca_semente(self, slot, semente, player):
         if player.vida_da_enxada != 0:
-            self.slots[slot].tipo_planta = semente
-            self.slots[slot].planta()
-            player.usa_enxada()
+            if semente == 'tomate' and player.s_tomate > 0:
+                self.slots[slot].tipo_planta = semente
+                self.slots[slot].planta()
+                player.usa_enxada()
+                player.s_tomate -= 1
+            elif semente == 'batata' and player.s_batata > 0:
+                self.slots[slot].tipo_planta = semente
+                self.slots[slot].planta()
+                player.usa_enxada()
+                player.s_batata -= 1
+            elif semente == 'trigo' and player.s_trigo > 0:
+                self.slots[slot].tipo_planta = semente
+                self.slots[slot].planta()
+                player.usa_enxada()
+                player.s_trigo -= 1
+            else:
+                pass
         else:
             pass
 

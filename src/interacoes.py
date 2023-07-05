@@ -95,7 +95,19 @@ class Interações:
                     popup.aux = 0
                     popup.close = True
                 if keys[pygame.K_7]:
-                    mercado.faz_compra(player)
+                    mercado.compra_semente(player, 'tomate')
+                    popup.aux = 0
+                    popup.close = True
+                if keys[pygame.K_8]:
+                    mercado.compra_semente(player, 'batata')
+                    popup.aux = 0
+                    popup.close = True
+                if keys[pygame.K_9]:
+                    mercado.compra_semente(player, 'trigo')
+                    popup.aux = 0
+                    popup.close = True
+                if keys[pygame.K_0]:
+                    mercado.compra_enxada(player)
                     popup.aux = 0
                     popup.close = True
 ###############################################################################################

@@ -41,20 +41,36 @@ class Mercado(Local, Imprime):
         else:
             pass
     
-    def faz_compra(self, player):
+    def compra_enxada(self, player):
         player.tem_enxada = True
         player.vida_da_enxada = 5
         player.dinheiro -= CUSTO_ENXADA
+    
+    def compra_semente(self, player, semente):
+        if semente == 'tomate':
+            player.s_tomate += 2
+            player.dinheiro -= CUSTO_SEMENTE
+        if semente == 'batata':
+            player.s_batata += 2
+            player.dinheiro -= CUSTO_SEMENTE
+        if semente == 'trigo':
+            player.s_trigo += 2
+            player.dinheiro -= CUSTO_SEMENTE
 
     def imprime(self, screen, player):
-        screen.blit(FONTE1.render(f'1 - Você tem {player.qtd_tomate} tomates, deseja vender?', True, BLACK), (325, 185))
-        screen.blit(FONTE1.render(f'2 - Você tem {player.qtd_batata} batatas, deseja vender?', True, BLACK), (325, 210))
-        screen.blit(FONTE1.render(f'3 - Você tem {player.qtd_trigo} quilos de trigo, deseja vender?', True, BLACK), (325, 235))
-        screen.blit(FONTE1.render(f'4 - Você tem {player.qtd_leite} litros de leite, deseja vender?', True, BLACK), (325, 260))
-        screen.blit(FONTE1.render(f'5 - Você tem {player.qtd_ovo} ovos, deseja vender?', True, BLACK), (325, 285))
-        screen.blit(FONTE1.render(f'6 - Você tem {player.qtd_la} quilos de lã, deseja vender?', True, BLACK), (325, 310))
+        screen.blit(FONTE1.render(f'1 - Tens {player.qtd_tomate} tomates, deseja vender?', True, BLACK), (325, 185))
+        screen.blit(FONTE1.render(f'2 - Tens {player.qtd_batata} batatas, deseja vender?', True, BLACK), (325, 210))
+        screen.blit(FONTE1.render(f'3 - Tens {player.qtd_trigo} quilos de trigo, deseja vender?', True, BLACK), (325, 235))
+        screen.blit(FONTE1.render(f'4 - Tens {player.qtd_leite} litros de leite, deseja vender?', True, BLACK), (325, 260))
+        screen.blit(FONTE1.render(f'5 - Tens {player.qtd_ovo} ovos, deseja vender?', True, BLACK), (325, 285))
+        screen.blit(FONTE1.render(f'6 - Tens {player.qtd_la} quilos de lã, deseja vender?', True, BLACK), (325, 310))
+        screen.blit(FONTE1.render(f'7 - Tens {player.s_tomate} sementes de tomate, deseja comprar 2?', True, BLACK), (325, 335))
+        screen.blit(FONTE1.render(f'8 - Tens {player.s_batata} sementes de batata, deseja comprar 2?', True, BLACK), (325, 360))
+        screen.blit(FONTE1.render(f'9 - Tens {player.s_trigo} sementes de trigo, deseja comprar 2?', True, BLACK), (325, 385))
+        
+        
         if player.tem_enxada == False:
-            screen.blit(FONTE1.render('7 - Você não tem enxada para plantar,', True, BLACK), (325, 335))
-            screen.blit(FONTE1.render('deseja comprar uma?', True, BLACK), (325, 360))
+            screen.blit(FONTE1.render('0 - Você não tem enxada para plantar,', True, BLACK), (325, 410))
+            screen.blit(FONTE1.render('deseja comprar uma?', True, BLACK), (325, 435))
         else:
             pass

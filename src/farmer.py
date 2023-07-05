@@ -62,6 +62,11 @@ class Farmer(pygame.sprite.Sprite):
         self.qtd_ovo = 0
         self.qtd_la = 0
 
+        # Inventário de sementes
+        self.s_tomate = 1
+        self.s_batata = 1
+        self.s_trigo = 1
+
         # Criação das interações que ocorrem entre o personagem e os locais do mapa
         self.interações = Interações()
 ###############################################################################################
