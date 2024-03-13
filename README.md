@@ -1,5 +1,7 @@
 # Fazendinha Feliz
 
+Projeto final da matéria de Linguagem de Programação III do semestre 2023.1, realizado por Alice Martins Valero e Davi Roriz Oliveira
+
 Tutorial de teclas do jogo:
 
 Jogador- Teclas 'W' 'A' 'S' 'D' ou 'UP' 'LEFT' 'DOWN' 'RIGHT' para a movimentação, manter pressionado a teclas 'i' para abrir o inventário
